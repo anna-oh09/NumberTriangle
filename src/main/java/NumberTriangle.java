@@ -90,8 +90,19 @@ public class NumberTriangle {
      *
      */
     public int retrieve(String path) {
-        // TODO implement this method
-        return -1;
+        NumberTriangle curr = this;
+        if (path == null || path.isEmpty()) {
+            return curr.root;
+        }
+        for (int i = 0; i < path.length(); i++) {
+            char ch = path.charAt(i);
+            if (ch == 'l') {
+                curr = curr.left;
+            } else if (ch == 'r') {
+                curr = curr.right;
+            }
+        }
+        return curr.root;
     }
 
     /** Read in the NumberTriangle structure from a file.
@@ -125,7 +136,7 @@ public class NumberTriangle {
                 line = br.readLine();
                 continue;
             }
-            String[] parts = line.split("\\s+ ");
+            String[] parts = line.split("\\s+");
             currRow= new ArrayList<>(parts.length);
             for (String p: parts) {
                 int num = Integer.parseInt(p);
